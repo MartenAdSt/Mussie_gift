@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday Mussie!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 30px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #00ff99;
+            margin: 0;
+        }
+
+        .content {
+            padding: 30px 20px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s ease;
+        }
+
+        .content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .game-image {
+            max-width: 90%;
+            height: auto;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .account-box {
+            background-color: #1f1f1f;
+            border: 2px solid #00ff99;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            display: inline-block;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
+        }
+
+        .account-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .epic-logo {
+            max-width: 150px;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        .account-box p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Happy Birthday Mussie! 🥳</h1>
+    <p>We got you something special...</p>
+</header>
+
+<div class="content" id="mainContent">
+    <img class="game-image" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2252570/capsule_616x353.jpg?t=1747383006" alt="Football Manager 2024">
+    <div class="account-box" id="gift">
+        <h2>Epic Games Login</h2>
+        <img class="epic-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg" alt="Epic Games Logo">
+        <p><strong>Email:</strong> angieshoemaker1935@ambideml.ru</p>
+        <p><strong>Password:</strong> JZWttLw5rcvBxp</p>
+    </div>
+</div>
+
+
+
+<footer>
+    <p>🎁  Shashank, Marten, Diego, Mertcan, Suraj, Sophie, and Emirhan </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+    // Show main content after user scrolls
+    let revealed = false;
+    window.addEventListener('scroll', () => {
+        if (!revealed) {
+            document.getElementById('mainContent').classList.add('visible');
+            revealed = true;
+        }
+    });
+
+    // Show gift box + confetti on scroll into view
+    const giftBox = document.getElementById('gift');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                giftBox.classList.add('visible');
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.6 }
+                });
+                observer.unobserve(giftBox);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    observer.observe(giftBox);
+</script>
+
+
+</body>
+</html>
