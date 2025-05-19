@@ -108,32 +108,38 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-    // Show main content after user scrolls
-    let revealed = false;
-    window.addEventListener('scroll', () => {
-        if (!revealed) {
-            document.getElementById('mainContent').classList.add('visible');
-            revealed = true;
-        }
-    });
+  let revealed = false;
+  let observerInitialized = false;
 
-    // Show gift box + confetti on scroll into view
+  function initGiftObserver() {
+    if (observerInitialized) return;
+    observerInitialized = true;
+
     const giftBox = document.getElementById('gift');
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                giftBox.classList.add('visible');
-                confetti({
-                    particleCount: 150,
-                    spread: 100,
-                    origin: { y: 0.6 }
-                });
-                observer.unobserve(giftBox);
-            }
-        });
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          giftBox.classList.add('visible');
+          confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.6 }
+          });
+          observer.unobserve(giftBox);
+        }
+      });
     }, { threshold: 0.5 });
 
     observer.observe(giftBox);
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!revealed) {
+      document.getElementById('mainContent').classList.add('visible');
+      revealed = true;
+      initGiftObserver(); // Now it's safe to activate the confetti watcher
+    }
+  });
 </script>
 
 
